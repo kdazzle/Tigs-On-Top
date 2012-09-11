@@ -20,7 +20,7 @@ class ImportGamesCron():
     def getDateRange(self):
         base = self.TIMEZONE.localize(datetime.datetime.today())
         dateList = [ 
-                base + datetime.timedelta(days=x) for x in range(-2,self.IMPORT_ADVANCE_DAYS) 
+                base + datetime.timedelta(days=x) for x in range(-1,self.IMPORT_ADVANCE_DAYS) 
             ]
         return dateList
 
