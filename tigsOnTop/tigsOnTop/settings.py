@@ -1,6 +1,13 @@
 # Django settings for tigsOnTop project.
 import os, posixpath
 
+# The team being tracked
+THE_TEAM = "Tigers"
+
+#Cron
+IMPORT_ADVANCE_DAYS = 7
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -30,7 +37,7 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/Detroit'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
