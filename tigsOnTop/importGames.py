@@ -15,7 +15,8 @@ class ImportGamesCron():
     def importGames(self):
         dateRange = self.getDateRange()
         for day in dateRange:
-            self.importGame(day)
+            games = self.getGamesToImportByDay(day)
+            self.saveGames(games)
 
     def getDateRange(self):
         base = self.TIMEZONE.localize(datetime.datetime.today())
@@ -24,12 +25,18 @@ class ImportGamesCron():
             ]
         return dateList
 
-    def importGame(self, day):
+    def getGamesToImportByDay(self, day):
+        """Returns list of games"""
         gameDataUrl = self.getGameDataUrl(day)
         remoteDataXml = minidom.parse(urllib2.urlopen(gameDataUrl))
         teamList = remoteDataXml.getElementsByTagName('team')
-        tigersGames = self.getGamesFromTeamList(teamList)
-        self.saveGames(tigersGames, day)
+        tigersGamesNodes = self.getGamesFromTeamList(teamList)
+        
+        games = []
+        for gameNode in tigersGamesNodes:
+            games.append(self.getGameData(gameNode, day))
+        
+        return games
 
     def getGameDataUrl(self, date):
         month = "%02d" % (date.month)
@@ -48,46 +55,40 @@ class ImportGamesCron():
                 games.append(team.parentNode)
         return games
 
-    def saveGames(self, games, day):
+    def saveGames(self, games):
         for game in games:
-            newGame = self.getGameData(game, day)
-            newGame.save()
+            game.importNewGame()
         
     def getGameData(self, gameNode, day):
         teamsXml = gameNode.getElementsByTagName("team")
-        teamsData = {}
         game = Game()
-        startTime = self.getStartTime(gameNode, day)
-        game.startTime = startTime
-        for team in teamsXml:
-            currentTeamName = team.attributes["name"].value
-            teamsData[currentTeamName] = team
+        game.startTime = self.getStartTime(gameNode, day)
+        game.currentStatus = self.getGameCurrentStatus(gameNode)
+        for teamNode in teamsXml:
+            currentTeamName = teamNode.attributes["name"].value
             if currentTeamName == settings.THE_TEAM:
                 game.usTeam = settings.THE_TEAM
+                game.usScore = self.getScoreFromTeamNode(teamNode)
             else:
                 game.themTeam = currentTeamName
+                game.themScore = self.getScoreFromTeamNode(teamNode)
         
         return game
-
-        #score = self.getGameScore(teamsData)
-        #teamsData["score"] = score
-        #return teamsData
         
     def getStartTime(self, gameNode, day):
         gameDataNode = gameNode.getElementsByTagName("game")[0]
         startTime = gameDataNode.attributes["start_time"].value
         startDay = "%s %s %s" % (day.month, day.day, day.year)
         return DateTime.strptime("%s %s" % (startDay, startTime), "%m %d %Y %I:%M%p")
-
-    def getGameScore(self, teamsData):
-        scores = {}    
-        for team, data in teamsData.iteritems():
-            scores[team] = self.getScoreFromTeamNode(data)
-        return scores
+    
+    def getGameCurrentStatus(self, gameNode):
+        gameDataNode = gameNode.getElementsByTagName("game")[0]
+        status = gameDataNode.attributes["status"].value
+        return status
 
     def getScoreFromTeamNode(self, teamNode):
         gameStats = teamNode.getElementsByTagName("gameteam")[0]
-        #TODO: throw exception if gameStats len != 1
+        #TODO: throw exception if gameStats len != 1?
         return gameStats.attributes["R"].value
 
 

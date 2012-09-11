@@ -2,14 +2,10 @@
 
 {% block content %}
     <h1>Did the Tigers win the game?</h1>
-    <p>{{ remoteData }}</p>
     <h2>{{ winningDialog }}</h2>
-    
-    <p>{{ url }}</p>    
     <h3>The score is:</h3>
-    <ul>    
-        {% for team, score in scores.iteritems %}
-            <li>{{ team }}: {{ score }}</li>
-        {% endfor %}
+    <ul>
+        <li>{{ game.usTeam }}: {{ game.usScore }}</li>
+        <li>{{ game.themTeam }}: {{ game.themScore }}</li>
     </ul>
 {% endblock %}

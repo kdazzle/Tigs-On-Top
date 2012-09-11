@@ -1,39 +1,38 @@
 import urllib2
 from xml.dom import minidom
 import datetime
+import pytz
 
 from django.template import Context, loader, RequestContext, Template
 from django.http import HttpResponse
 from django.conf import settings
+from gameTracker.models import Game
 
 THE_TEAM = settings.THE_TEAM
+TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 
 def home(request):
-    areWeWinning = isWeWinning(gameData["score"])
-    isFinal = isFinalScore(tigersGame)
+    game = getActiveGame()
+    areWeWinning = isWeWinning(game)
+    isFinal = isFinalScore(game)
 
     t = "gameTracker/home.html"
     c = RequestContext(request, {
-         'remoteData': tigersGame.toxml(),
-         "scores": gameData["score"],
+         "game": game,
          "winningDialog": getWinningDialog(areWeWinning, isFinal),
-         "url": gameDataUrl,
          })
     return loadPage(request, c, t)
 
-def isWeWinning(scores):    
-    for team, score in scores.iteritems():
-        if team == THE_TEAM:
-            ourScore = score
-        else:
-            theirScore = score
+def getActiveGame():
+    localNow = TIMEZONE.localize(datetime.datetime.now())
+    game = Game.objects.filter(startTime__lte=localNow)
+    return game[0]
 
-    return ourScore > theirScore
+def isWeWinning(game):   
+    return game.usScore > game.themScore
 
-def isFinalScore(tigersGameNode):
-    gameDataNode = tigersGameNode.getElementsByTagName("game")[0]
-    status = gameDataNode.attributes["status"].value
-    if status == "FINAL":
+def isFinalScore(game):
+    if game.currentStatus == "Final":
         return True
     else:
         return False
