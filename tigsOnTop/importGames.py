@@ -2,12 +2,14 @@ import urllib2
 from xml.dom import minidom
 from datetime import datetime as DateTime
 import datetime
+import pytz
 import sys
 
 from tigsOnTop import settings
 from gameTracker.models import Game
 
 class ImportGamesCron():
+    TIMEZONE = pytz.timezone(settings.TIME_ZONE)
     IMPORT_ADVANCE_DAYS = settings.IMPORT_ADVANCE_DAYS
 
     def importGames(self):
@@ -16,9 +18,9 @@ class ImportGamesCron():
             self.importGame(day)
 
     def getDateRange(self):
-        base = datetime.datetime.today()
+        base = self.TIMEZONE.localize(datetime.datetime.today())
         dateList = [ 
-                base + datetime.timedelta(days=x) for x in range(0,self.IMPORT_ADVANCE_DAYS) 
+                base + datetime.timedelta(days=x) for x in range(-2,self.IMPORT_ADVANCE_DAYS) 
             ]
         return dateList
 
