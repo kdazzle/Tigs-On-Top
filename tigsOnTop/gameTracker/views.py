@@ -13,20 +13,24 @@ THE_TEAM = settings.THE_TEAM
 TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 
 def home(request):
-    game = getActiveGame()
-    areWeWinning = isWeWinning(game)
-    isFinal = isFinalScore(game)
+    try:
+        game = getActiveGame()
+        areWeWinning = isWeWinning(game)
+        isFinal = isFinalScore(game)
+        winningDialog = getWinningDialog(areWeWinning, isFinal)
+    except Exception:
+        game = None
+        winningDialog = None
 
     t = "gameTracker/home.html"
     c = RequestContext(request, {
          "game": game,
-         "winningDialog": getWinningDialog(areWeWinning, isFinal),
+         "winningDialog": winningDialog,
          })
     return loadPage(request, c, t)
 
 def getActiveGame():
     utcNow = datetime.datetime.utcnow().replace(tzinfo=utc)
-    print utcNow
     games = Game.objects.filter(startTime__lte=utcNow).order_by("-startTime")
     return games[0]
 
