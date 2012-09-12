@@ -3,6 +3,7 @@ from xml.dom import minidom
 import datetime
 import pytz
 
+from django.utils.timezone import utc
 from django.template import Context, loader, RequestContext, Template
 from django.http import HttpResponse
 from django.conf import settings
@@ -24,15 +25,18 @@ def home(request):
     return loadPage(request, c, t)
 
 def getActiveGame():
-    localNow = TIMEZONE.localize(datetime.datetime.now())
-    game = Game.objects.filter(startTime__lte=localNow)
-    return game[0]
+    utcNow = datetime.datetime.utcnow().replace(tzinfo=utc)
+    print utcNow
+    games = Game.objects.filter(startTime__lte=utcNow).order_by("-startTime")
+    print "Game length: %s" % len(games)    
+    print games[0]
+    return games[0]
 
 def isWeWinning(game):   
     return game.usScore > game.themScore
 
 def isFinalScore(game):
-    if game.currentStatus == "Final":
+    if game.currentStatus == "FINAL":
         return True
     else:
         return False

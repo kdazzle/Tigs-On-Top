@@ -5,6 +5,7 @@ import datetime
 import pytz
 import sys
 
+from django.utils.timezone import utc
 from tigsOnTop import settings
 from gameTracker.models import Game
 
@@ -44,6 +45,7 @@ class ImportGamesCron():
         year = "%02d" % (date.year)
         url = "http://gd2.mlb.com/components/game/mlb/year_%s/month_%s/day_%s/scoreboard.xml" % (year, month, day)
     
+        print url
         return url
 
     def getGamesFromTeamList(self, teamList):
@@ -72,14 +74,17 @@ class ImportGamesCron():
             else:
                 game.themTeam = currentTeamName
                 game.themScore = self.getScoreFromTeamNode(teamNode)
-        
+        print game
         return game
         
     def getStartTime(self, gameNode, day):
         gameDataNode = gameNode.getElementsByTagName("game")[0]
         startTime = gameDataNode.attributes["start_time"].value
         startDay = "%s %s %s" % (day.month, day.day, day.year)
-        return DateTime.strptime("%s %s" % (startDay, startTime), "%m %d %Y %I:%M%p")
+        utcTime = DateTime.strptime("%s %s" % (startDay, startTime), "%m %d %Y %I:%M%p")
+        utcTime.replace(tzinfo=utc)
+        print utcTime
+        return utcTime
     
     def getGameCurrentStatus(self, gameNode):
         gameDataNode = gameNode.getElementsByTagName("game")[0]

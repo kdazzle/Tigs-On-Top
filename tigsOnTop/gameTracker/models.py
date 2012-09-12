@@ -15,6 +15,17 @@ class Game(models.Model):
     addDate = models.DateTimeField(auto_now_add=True)
     currentStatus = models.CharField(max_length=24, blank=True, null=True)
 
+    def __str__(self):
+        return """
+            usTeam: %s
+            usScore: %s
+            themTeam: %s
+            themScore: %s
+            startTime: %s
+            currentStatus: %s""" % (self.usTeam,
+                self.usScore, self.themTeam, self.themScore, 
+                self.startTime, self.currentStatus)
+
     def importNewGame(self):
         matchingGames = Game.objects.filter(startTime=self.startTime)    
         if len(matchingGames) == 0:
