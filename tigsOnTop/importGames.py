@@ -45,7 +45,6 @@ class ImportGamesCron():
         year = "%02d" % (date.year)
         url = "http://gd2.mlb.com/components/game/mlb/year_%s/month_%s/day_%s/scoreboard.xml" % (year, month, day)
     
-        print url
         return url
 
     def getGamesFromTeamList(self, teamList):
@@ -74,7 +73,7 @@ class ImportGamesCron():
             else:
                 game.themTeam = currentTeamName
                 game.themScore = self.getScoreFromTeamNode(teamNode)
-        print game
+
         return game
         
     def getStartTime(self, gameNode, day):
@@ -83,7 +82,7 @@ class ImportGamesCron():
         startDay = "%s %s %s" % (day.month, day.day, day.year)
         utcTime = DateTime.strptime("%s %s" % (startDay, startTime), "%m %d %Y %I:%M%p")
         utcTime.replace(tzinfo=utc)
-        print utcTime
+
         return utcTime
     
     def getGameCurrentStatus(self, gameNode):

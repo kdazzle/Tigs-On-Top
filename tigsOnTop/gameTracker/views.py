@@ -28,8 +28,6 @@ def getActiveGame():
     utcNow = datetime.datetime.utcnow().replace(tzinfo=utc)
     print utcNow
     games = Game.objects.filter(startTime__lte=utcNow).order_by("-startTime")
-    print "Game length: %s" % len(games)    
-    print games[0]
     return games[0]
 
 def isWeWinning(game):   

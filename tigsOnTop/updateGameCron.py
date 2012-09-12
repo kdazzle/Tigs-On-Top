@@ -6,6 +6,7 @@ import datetime
 import pytz
 import sys
 
+from django.utils.timezone import utc
 from importGames import ImportGamesCron
 from tigsOnTop import settings
 from gameTracker.models import Game
@@ -19,35 +20,33 @@ class UpdateGameCron(ImportGamesCron):
     UPDATE_BEYOND_MIDNIGHT_HOURS = 8
 
     def updateGame(self):
-        print "updating game"
-        if self.isGameActive():
-            print lineClear
-            print "game is active"
-            self.updateActiveGame()
-
-    def isGameActive(self):
-        minQueryTime = self.TIMEZONE.localize(
-            datetime.datetime.today() - timedelta(
-                hours=self.START_UPDATING_PREGAME_HOURS))
-        maxQueryTime = self.timezone.localize(
-            datetime.datetime.today() + timedelta(
-                hours=self.UPDATE_BEYOND_MIDNIGHT_HOURS))
-        
-        activeGames = Game.objects.filter(startTime__range=(minQueryTime, maxQueryTime))
-        activeGames.exclude(currentStatus="FINAL")
-        
-        if len(activeGames) > 0:
-            return True
-        else:
-            return False
+        startTimeOfTodaysGame = self.getStartTimeOfTodaysGame()
+        if startTimeOfTodaysGame is not None:
+            self.updateActiveGames(startTimeOfTodaysGame)
     
-    def updateActiveGame(self):
-        localToday = self.TIMEZONE.localize(datetime.datetime.today())
-        activeGames = self.getGamesToImportByDay(localToday)
-        activeGame = activeGames[0]
-        print activeGame
-        activeGame.save()
+    def getStartTimeOfTodaysGame(self):
+        todaysDatetime = datetime.datetime.utcnow()
+        activeGames = Game.objects.filter(startTime__lte=todaysDatetime).exclude(
+            currentStatus=settings.GAME_STATUS_FINAL)
         
+        for game in activeGames:
+            if game.currentStatus == settings.GAME_STATUS_IN_PROGRESS:
+                startTime = game.startTime
+
+        print len(activeGames)
+        if len(activeGames) > 0:
+            startTime = activeGames[0].startTime
+        else:
+            startTime = None
+
+        return startTime.astimezone(self.TIMEZONE)
+
+    def updateActiveGames(self, startTime):
+        activeGames = self.getGamesToImportByDay(startTime)
+        
+        #TODO: There should only be one active game at a time...
+        for game in activeGames:
+            game.save()
 
 if __name__ == "__main__":
     updater = UpdateGameCron()

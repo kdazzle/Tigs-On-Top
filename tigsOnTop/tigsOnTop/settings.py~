@@ -1,7 +1,14 @@
 # Django settings for tigsOnTop project.
 import os, posixpath
 
+# The team being tracked
 THE_TEAM = "Tigers"
+# Game Statuses
+GAME_STATUS_IN_PROGRESS = "IN PROGRESS"
+
+#Cron
+IMPORT_ADVANCE_DAYS = 7
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG

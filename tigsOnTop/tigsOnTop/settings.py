@@ -3,6 +3,9 @@ import os, posixpath
 
 # The team being tracked
 THE_TEAM = "Tigers"
+# Game Statuses
+GAME_STATUS_IN_PROGRESS = "IN_PROGRESS"
+GAME_STATUS_FINAL = "FINAL"
 
 #Cron
 IMPORT_ADVANCE_DAYS = 7
