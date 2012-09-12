@@ -33,11 +33,10 @@ class UpdateGameCron(ImportGamesCron):
             if game.currentStatus == settings.GAME_STATUS_IN_PROGRESS:
                 startTime = game.startTime
 
-        print len(activeGames)
         if len(activeGames) > 0:
             startTime = activeGames[0].startTime
         else:
-            startTime = None
+            return None
 
         return startTime.astimezone(self.TIMEZONE)
 
@@ -46,7 +45,15 @@ class UpdateGameCron(ImportGamesCron):
         
         #TODO: There should only be one active game at a time...
         for game in activeGames:
-            game.save()
+            existingGame = Game.objects.filter(startTime=game.startTime)[0]
+            existingGame = self.updateExistingGameFields(existingGame, game)
+            existingGame.save()
+
+    def updateExistingGameFields(self, existingGame, newGame):
+        existingGame.usScore = newGame.usScore
+        existingGame.themScore = newGame.themScore
+        existingGame.currentStatus = newGame.currentStatus
+        return existingGame
 
 if __name__ == "__main__":
     updater = UpdateGameCron()
