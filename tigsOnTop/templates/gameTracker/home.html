@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block metaDescription %}
+    <meta name="description" content="{{ winningDialog }}" />
+{% endblock %}
+
 {% block content %}
     <div id="content" align="center" style="padding:15px">
         <h1>Did the Tigers win the game?</h1>
@@ -12,7 +16,7 @@
                 <li>{{ game.themTeam }}: {{ game.themScore }}</li>
             </ul>
         {% else %}
-            <h2>Uh oh, there was an error and I have no idea right now.</h2>
+            <h2>{{ winningDialog }}</h2>
         {% endif %}
     </div>
 {% endblock %}

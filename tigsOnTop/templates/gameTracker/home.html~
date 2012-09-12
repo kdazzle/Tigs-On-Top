@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
+{% block metaDescription %}
+    <meta name="description" content="{{ winningDialog }}" />
+{% endblock %}
+
 {% block content %}
     <div id="content" align="center" style="padding:15px">
         <h1>Did the Tigers win the game?</h1>
         
-        {% if game is not None %}
+        {% if game %}
             <h2>{{ winningDialog }}</h2>
             <h2>The score is:</h2>
             <ul style="list-style-type:none;">

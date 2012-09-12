@@ -20,7 +20,7 @@ def home(request):
         winningDialog = getWinningDialog(areWeWinning, isFinal)
     except Exception:
         game = None
-        winningDialog = None
+        winningDialog = "Uh oh, there was an error and I have no idea right now."
 
     t = "gameTracker/home.html"
     c = RequestContext(request, {
