@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Did the Tigers win the game?</h1>
-    <h2>{{ winningDialog }}</h2>
-    <h3>The score is:</h3>
-    <ul>
-        <li>{{ game.usTeam }}: {{ game.usScore }}</li>
-        <li>{{ game.themTeam }}: {{ game.themScore }}</li>
-    </ul>
+    <div id="content" align="center" style="padding:15px">
+        <h1>Did the Tigers win the game?</h1>
+        <h2>{{ winningDialog }}</h2>
+        <h2>The score is:</h3>
+        <ul style="list-style-type:none;">
+            <li>{{ game.usTeam }}: {{ game.usScore }}</li>
+            <li>{{ game.themTeam }}: {{ game.themScore }}</li>
+        </ul>
+    </div>
 {% endblock %}
