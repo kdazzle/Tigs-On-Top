@@ -15,9 +15,8 @@ TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 def home(request):
     try:
         game = getActiveGame()
-        areWeWinning = isWeWinning(game)
         isFinal = isFinalScore(game)
-        winningDialog = getWinningDialog(areWeWinning, isFinal)
+        winningDialog = getWinningDialog(game, isFinal)
     except Exception:
         game = None
         winningDialog = "Uh oh, there was an error and I have no idea right now."
@@ -34,22 +33,23 @@ def getActiveGame():
     games = Game.objects.filter(startTime__lte=utcNow).order_by("-startTime")
     return games[0]
 
-def isWeWinning(game):   
-    return game.usScore > game.themScore
-
 def isFinalScore(game):
     if game.currentStatus == "FINAL":
         return True
     else:
         return False
 
-def getWinningDialog(areWeWinning, isFinal):
-    if areWeWinning is True and isFinal is True:
+def getWinningDialog(game, isFinal):   
+    if game.usScore > game.themScore and isFinal is True:
         return "Shit yeah"
-    elif areWeWinning is True and isFinal is False:
+    elif game.usScore > game.themScore and isFinal is False:
         return "No, but we're winning"
-    elif areWeWinning is False and isFinal is False:
-        return "No, and we're not quite winning"
+    elif game.usScore < game.themScore and isFinal is False:
+        return "No. But we still got a chance."
+    elif game.usScore == game.themScore and isFinal is False:
+        return "Naw, it's tied"
+    elif game.usScore == game.themScore and isFinal is True:
+        return "Almost. It was tied."
     else:
         return "Not this time, gents"
 

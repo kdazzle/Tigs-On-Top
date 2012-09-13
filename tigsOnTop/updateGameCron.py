@@ -11,13 +11,9 @@ from importGames import ImportGamesCron
 from tigsOnTop import settings
 from gameTracker.models import Game
 
-lineClear = "***************************************"
-
 class UpdateGameCron(ImportGamesCron):
 
     TIMEZONE = pytz.timezone(settings.TIME_ZONE)
-    START_UPDATING_PREGAME_HOURS = 1
-    UPDATE_BEYOND_MIDNIGHT_HOURS = 8
 
     def updateGame(self):
         startTimeOfTodaysGame = self.getStartTimeOfTodaysGame()
