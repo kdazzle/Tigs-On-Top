@@ -31,7 +31,10 @@ def home(request):
 def getActiveGame():
     utcNow = datetime.datetime.utcnow().replace(tzinfo=utc)
     games = Game.objects.filter(startTime__lte=utcNow).order_by("-startTime")
-    return games[0]
+    if games:
+        return games[0]
+    else:
+        return None
 
 def isFinalScore(game):
     if game and game.currentStatus == "FINAL":
