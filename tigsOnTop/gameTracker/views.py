@@ -34,13 +34,15 @@ def getActiveGame():
     return games[0]
 
 def isFinalScore(game):
-    if game.currentStatus == "FINAL":
+    if game and game.currentStatus == "FINAL":
         return True
     else:
         return False
 
-def getWinningDialog(game, isFinal):   
-    if game.usScore > game.themScore and isFinal is True:
+def getWinningDialog(game, isFinal):
+    if not game:
+        return "Well, no. But we got it next season!"
+    elif game.usScore > game.themScore and isFinal is True:
         return "Shit yeah"
     elif game.usScore > game.themScore and isFinal is False:
         return "No, but we're winning"
