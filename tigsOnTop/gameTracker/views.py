@@ -12,6 +12,8 @@ from gameTracker.models import Game
 THE_TEAM = settings.THE_TEAM
 TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 
+__author__ = "Kyle Valade"
+
 def home(request):
     try:
         game = getActiveGame()

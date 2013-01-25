@@ -9,6 +9,8 @@ from django.utils.timezone import utc
 from tigsOnTop import settings
 from gameTracker.models import Game
 
+__author__ = "Kyle Valade"
+
 class ImportGamesCron():
     TIMEZONE = pytz.timezone(settings.TIME_ZONE)
     IMPORT_ADVANCE_DAYS = settings.IMPORT_ADVANCE_DAYS

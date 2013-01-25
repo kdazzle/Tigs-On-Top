@@ -4,6 +4,8 @@ import pytz
 from django.db import models
 from tigsOnTop import settings
 
+__author__ = "Kyle Valade"
+
 class Game(models.Model):
     TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 
@@ -23,11 +25,11 @@ class Game(models.Model):
             themScore: %s
             startTime: %s
             currentStatus: %s""" % (self.usTeam,
-                self.usScore, self.themTeam, self.themScore, 
+                self.usScore, self.themTeam, self.themScore,
                 self.startTime, self.currentStatus)
 
     def importNewGame(self):
-        matchingGames = Game.objects.filter(startTime=self.startTime)    
+        matchingGames = Game.objects.filter(startTime=self.startTime)
         if len(matchingGames) == 0:
             super(Game, self).save()
 
