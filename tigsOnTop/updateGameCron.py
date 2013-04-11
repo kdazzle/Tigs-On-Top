@@ -1,3 +1,4 @@
+#!/usr/local/bin/python2.7
 import urllib2
 from xml.dom import minidom
 from datetime import datetime as DateTime
@@ -11,25 +12,29 @@ from importGames import ImportGamesCron
 from tigsOnTop import settings
 from gameTracker.models import Game
 
-__author__ = "Kyle Valade"
+lineClear = "***************************************"
 
 class UpdateGameCron(ImportGamesCron):
 
     TIMEZONE = pytz.timezone(settings.TIME_ZONE)
+    START_UPDATING_PREGAME_HOURS = 1
+    UPDATE_BEYOND_MIDNIGHT_HOURS = 8
 
     def updateGame(self):
         startTimeOfTodaysGame = self.getStartTimeOfTodaysGame()
         if startTimeOfTodaysGame is not None:
             self.updateActiveGames(startTimeOfTodaysGame)
-
+    
     def getStartTimeOfTodaysGame(self):
-        todaysDatetime = datetime.datetime.utcnow()
-        activeGames = Game.objects.filter(startTime__lte=todaysDatetime).exclude(
+        nowTime = datetime.datetime.utcnow()
+        midniteTonite = datetime.datetime.now(pytz.timezone("America/Detroit")) \
+		.replace(hour=0, minute=0, second=0, microsecond=0) \
+		.astimezone(pytz.utc)
+        activeGames = Game.objects.filter(startTime__lte=nowTime, startTime__gte=midniteTonite).exclude(
             currentStatus=settings.GAME_STATUS_FINAL)
-
+        
         for game in activeGames:
-            if game.currentStatus == settings.GAME_STATUS_IN_PROGRESS:
-                startTime = game.startTime
+            startTime = game.startTime
 
         if len(activeGames) > 0:
             startTime = activeGames[0].startTime
@@ -40,7 +45,7 @@ class UpdateGameCron(ImportGamesCron):
 
     def updateActiveGames(self, startTime):
         activeGames = self.getGamesToImportByDay(startTime)
-
+        
         #TODO: There should only be one active game at a time...
         for game in activeGames:
             existingGame = Game.objects.filter(startTime=game.startTime)[0]
