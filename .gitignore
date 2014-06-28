@@ -4,3 +4,5 @@
 *.py~
 local_settings.py
 env/
+.idea/
+config.ini

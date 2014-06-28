@@ -1,8 +1,12 @@
-# Django settings for tigsOnTop project.
-import os, posixpath
+import os
+import ConfigParser
 
-# The team being tracked
-THE_TEAM = "Tigers"
+
+PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+THE_TEAM = "Tigers" # The team being tracked
+
+
 # Game Statuses
 GAME_STATUS_IN_PROGRESS = "IN_PROGRESS"
 GAME_STATUS_FINAL = "FINAL"
@@ -14,7 +18,8 @@ IMPORT_ADVANCE_DAYS = 7
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+config = ConfigParser.ConfigParser()
+config.read(os.path.join(PROJECT_DIR, '..', 'config.ini'))
 
 ADMINS = (
     ('Kyle Valade', 'kylevalade@gmail.com'),
@@ -94,7 +99,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = ''
+SECRET_KEY = str(config.get('django', 'secret_key'))
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
