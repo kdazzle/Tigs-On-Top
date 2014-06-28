@@ -1,173 +1,271 @@
-<?xml version="1.0" encoding="UTF-8"?><!--Copyright 2012 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt-->
-<scoreboard date="20120910" last_modified="">
-   <sg_game>
-      <game id="2012_09_10_miamlb_phimlb_1" league="NN" status="PRE_GAME"
-            start_time="7:05PM"
+<?xml version="1.0" encoding="UTF-8"?><!--Copyright 2014 MLB Advanced Media, L.P.  Use of any content on this page acknowledges agreement to the terms posted here http://gdx.mlb.com/components/copyright.txt-->
+<scoreboard date="20140628" last_modified="">
+   <go_game>
+      <game id="2014_06_28_wasmlb_chnmlb_1" league="NN" status="FINAL" start_time="1:05PM"
             home_code=""/>
-      <team name="Phillies" code="">
-         <gameteam R="0" H="0" E="0"/>
+      <team name="Cubs" code="">
+         <gameteam R="0" H="3" E="0"/>
       </team>
-      <team name="Marlins" code="">
-         <gameteam R="0" H="0" E="0"/>
+      <team name="Nationals" code="">
+         <gameteam R="3" H="7" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="8" losses="10" era="3.96">
-         <pitcher name="K. Kendrick"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="2" losses="3" era="2.72">
-         <pitcher name="W. LeBlanc"/>
-      </p_pitcher>
-   </sg_game>
+      <w_pitcher wins="5" losses="4">
+         <pitcher name="G. Gonzalez"/>
+      </w_pitcher>
+      <l_pitcher wins="0" losses="1">
+         <pitcher name="D. Beeler"/>
+      </l_pitcher>
+      <sv_pitcher saves="19">
+         <pitcher name="R. Soriano"/>
+      </sv_pitcher>
+   </go_game>
    <sg_game>
-      <game id="2012_09_10_pitmlb_cinmlb_1" league="NN" status="PRE_GAME"
-            start_time="7:10PM"
+      <game id="2014_06_28_wasmlb_chnmlb_2" league="NN" status="PRE_GAME"
+            start_time="7:15PM"
             home_code=""/>
-      <team name="Reds" code="">
-         <gameteam R="0" H="0" E="0"/>
-      </team>
-      <team name="Pirates" code="">
-         <gameteam R="0" H="0" E="0"/>
-      </team>
-      <p_pitcher teamcode="" wins="12" losses="4" era="3.69">
-         <pitcher name="M. Latos"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="10" losses="13" era="3.71">
-         <pitcher name="W. Rodriguez"/>
-      </p_pitcher>
-   </sg_game>
-   <sg_game>
-      <game id="2012_09_10_wasmlb_nynmlb_1" league="NN" status="PRE_GAME"
-            start_time="7:10PM"
-            home_code=""/>
-      <team name="Mets" code="">
+      <team name="Cubs" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
       <team name="Nationals" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="0" losses="1" era="3.27">
-         <pitcher name="C. McHugh"/>
+      <p_pitcher teamcode="" wins="2" losses="6" era="2.53">
+         <pitcher name="J. Samardzija"/>
       </p_pitcher>
-      <p_pitcher teamcode="" wins="18" losses="7" era="2.98">
-         <pitcher name="G. Gonzalez"/>
-      </p_pitcher>
-   </sg_game>
-   <sg_game>
-      <game id="2012_09_10_chnmlb_houmlb_1" league="NN" status="PRE_GAME"
-            start_time="8:05PM"
-            home_code=""/>
-      <team name="Astros" code="">
-         <gameteam R="0" H="0" E="0"/>
-      </team>
-      <team name="Cubs" code="">
-         <gameteam R="0" H="0" E="0"/>
-      </team>
-      <p_pitcher teamcode="" wins="1" losses="7" era="5.54">
-         <pitcher name="D. Keuchel"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="2" losses="10" era="6.23">
-         <pitcher name="C. Volstad"/>
+      <p_pitcher teamcode="" wins="0" losses="3" era="2.08">
+         <pitcher name="B. Treinen"/>
       </p_pitcher>
    </sg_game>
-   <sg_game>
-      <game id="2012_09_10_atlmlb_milmlb_1" league="NN" status="PRE_GAME"
-            start_time="8:10PM"
+   <ig_game outs="1">
+      <game id="2014_06_28_chamlb_tormlb_1" league="AA" status="IN_PROGRESS"
+            start_time="1:07PM"
             home_code=""/>
-      <team name="Brewers" code="">
+      <team name="Blue Jays" code="">
+         <gameteam R="3" H="7" E="0"/>
+      </team>
+      <team name="White Sox" code="">
+         <gameteam R="4" H="9" E="0"/>
+      </team>
+      <inningnum inning="9" half="B"/>
+      <pitcher name="Z. Putnam"/>
+      <batter name="M. Cabrera"/>
+      <on_base base="1">
+         <player name="J. Reyes"/>
+      </on_base>
+   </ig_game>
+   <ig_game outs="2">
+      <game id="2014_06_28_atlmlb_phimlb_1" league="NN" status="IN_PROGRESS"
+            start_time="2:05PM"
+            home_code=""/>
+      <team name="Phillies" code="">
+         <gameteam R="2" H="6" E="2"/>
+      </team>
+      <team name="Braves" code="">
+         <gameteam R="4" H="3" E="0"/>
+      </team>
+      <inningnum inning="7" half="T"/>
+      <pitcher name="R. Hernandez"/>
+      <on_base base="1">
+         <player name="E. Santana"/>
+      </on_base>
+   </ig_game>
+   <sg_game>
+      <game id="2014_06_28_atlmlb_phimlb_2" league="NN" status="PRE_GAME"
+            start_time="7:15PM"
+            home_code=""/>
+      <team name="Phillies" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
       <team name="Braves" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="1" losses="0" era="5.14">
-         <pitcher name="W. Peralta"/>
+      <p_pitcher teamcode="" wins="0" losses="0" era="-.--">
+         <pitcher name="S. O'Sullivan"/>
       </p_pitcher>
-      <p_pitcher teamcode="" wins="8" losses="10" era="4.58">
-         <pitcher name="M. Minor"/>
+      <p_pitcher teamcode="" wins="2" losses="2" era="3.14">
+         <pitcher name="D. Hale"/>
       </p_pitcher>
    </sg_game>
-   <sg_game>
-      <game id="2012_09_10_clemlb_minmlb_1" league="AA" status="PRE_GAME"
-            start_time="8:10PM"
+   <ig_game outs="3">
+      <game id="2014_06_28_anamlb_kcamlb_1" league="AA" status="DELAYED"
+            start_time="2:10PM"
+            home_code="">
+         <delay_reason>Rain</delay_reason>
+      </game>
+      <team name="Royals" code="">
+         <gameteam R="0" H="4" E="0"/>
+      </team>
+      <team name="Angels" code="">
+         <gameteam R="2" H="7" E="0"/>
+      </team>
+      <inningnum inning="4" half="B"/>
+      <pitcher name="H. Santiago"/>
+      <batter name="D. Valencia"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_minmlb_texmlb_1" league="AA" status="IMMEDIATE_PREGAME"
+            start_time="4:05PM"
             home_code=""/>
+      <team name="Rangers" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
       <team name="Twins" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <team name="Indians" code="">
+      <inningnum inning="1" half="T"/>
+      <pitcher name="Y. Darvish"/>
+      <batter name="S. Fuld"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_nynmlb_pitmlb_1" league="NN" status="IMMEDIATE_PREGAME"
+            start_time="4:05PM"
+            home_code=""/>
+      <team name="Pirates" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="5" losses="3" era="3.66">
-         <pitcher name="S. Deduno"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="11" losses="12" era="4.84">
-         <pitcher name="J. Masterson"/>
-      </p_pitcher>
-   </sg_game>
-   <sg_game>
-      <game id="2012_09_10_detmlb_chamlb_1" league="AA" status="PRE_GAME"
-            start_time="8:10PM"
+      <team name="Mets" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <inningnum inning="1" half="T"/>
+      <pitcher name="G. Cole"/>
+      <batter name="C. Granderson"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_tbamlb_balmlb_1" league="AA" status="IMMEDIATE_PREGAME"
+            start_time="4:05PM"
             home_code=""/>
-      <team name="White Sox" code="">
+      <team name="Orioles" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <team name="Rays" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <inningnum inning="1" half="T"/>
+      <pitcher name="W. Chen"/>
+      <batter name="D. Jennings"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_colmlb_milmlb_1" league="NN" status="IMMEDIATE_PREGAME"
+            start_time="4:10PM"
+            home_code=""/>
+      <team name="Brewers" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <team name="Rockies" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <inningnum inning="1" half="T"/>
+      <pitcher name="M. Garza"/>
+      <batter name="C. Blackmon"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_detmlb_houmlb_1" league="AA" status="IMMEDIATE_PREGAME"
+            start_time="4:10PM"
+            home_code=""/>
+      <team name="Astros" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
       <team name="Tigers" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="5" losses="4" era="3.68">
-         <pitcher name="J. Quintana"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="9" losses="11" era="4.58">
-         <pitcher name="R. Porcello"/>
-      </p_pitcher>
-   </sg_game>
-   <sg_game>
-      <game id="2012_09_10_sfnmlb_colmlb_1" league="NN" status="PRE_GAME"
-            start_time="8:40PM"
+      <inningnum inning="1" half="T"/>
+      <pitcher name="B. Oberholtzer"/>
+      <batter name="R. Davis"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_oakmlb_miamlb_1" league="AN" status="IMMEDIATE_PREGAME"
+            start_time="4:10PM"
             home_code=""/>
-      <team name="Rockies" code="">
-         <gameteam R="0" H="0" E="0"/>
-      </team>
-      <team name="Giants" code="">
-         <gameteam R="0" H="0" E="0"/>
-      </team>
-      <p_pitcher teamcode="" wins="2" losses="8" era="5.31">
-         <pitcher name="A. White"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="12" losses="7" era="3.29">
-         <pitcher name="R. Vogelsong"/>
-      </p_pitcher>
-   </sg_game>
-   <sg_game>
-      <game id="2012_09_10_oakmlb_anamlb_1" league="AA" status="PRE_GAME"
-            start_time="10:05PM"
-            home_code=""/>
-      <team name="Angels" code="">
+      <team name="Marlins" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
       <team name="Athletics" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="10" losses="10" era="4.46">
-         <pitcher name="D. Haren"/>
-      </p_pitcher>
-      <p_pitcher teamcode="" wins="9" losses="8" era="3.67">
-         <pitcher name="J. Parker"/>
-      </p_pitcher>
-   </sg_game>
-   <sg_game>
-      <game id="2012_09_10_slnmlb_sdnmlb_1" league="NN" status="PRE_GAME"
-            start_time="10:05PM"
+      <inningnum inning="1" half="T"/>
+      <pitcher name="N. Eovaldi"/>
+      <batter name="C. Crisp"/>
+   </ig_game>
+   <ig_game outs="0">
+      <game id="2014_06_28_bosmlb_nyamlb_1" league="AA" status="PRE_GAME"
+            start_time="7:15PM"
             home_code=""/>
-      <team name="Padres" code="">
+      <team name="Yankees" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <team name="Red Sox" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <inningnum inning="1" half="T"/>
+      <pitcher name="M. Tanaka"/>
+      <batter name="B. Holt"/>
+   </ig_game>
+   <sg_game>
+      <game id="2014_06_28_slnmlb_lanmlb_1" league="NN" status="PRE_GAME"
+            start_time="7:15PM"
+            home_code=""/>
+      <team name="Dodgers" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
       <team name="Cardinals" code="">
          <gameteam R="0" H="0" E="0"/>
       </team>
-      <p_pitcher teamcode="" wins="5" losses="2" era="2.38">
+      <p_pitcher teamcode="" wins="9" losses="4" era="2.89">
+         <pitcher name="Z. Greinke"/>
+      </p_pitcher>
+      <p_pitcher teamcode="" wins="8" losses="5" era="2.90">
+         <pitcher name="L. Lynn"/>
+      </p_pitcher>
+   </sg_game>
+   <sg_game>
+      <game id="2014_06_28_cinmlb_sfnmlb_1" league="NN" status="PRE_GAME"
+            start_time="10:05PM"
+            home_code=""/>
+      <team name="Giants" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <team name="Reds" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <p_pitcher teamcode="" wins="1" losses="6" era="4.82">
+         <pitcher name="M. Cain"/>
+      </p_pitcher>
+      <p_pitcher teamcode="" wins="10" losses="3" era="2.92">
+         <pitcher name="A. Simon"/>
+      </p_pitcher>
+   </sg_game>
+   <sg_game>
+      <game id="2014_06_28_arimlb_sdnmlb_1" league="NN" status="PRE_GAME"
+            start_time="10:10PM"
+            home_code=""/>
+      <team name="Padres" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <team name="D-backs" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <p_pitcher teamcode="" wins="2" losses="10" era="5.49">
          <pitcher name="E. Stults"/>
       </p_pitcher>
-      <p_pitcher teamcode="" wins="4" losses="6" era="4.16">
-         <pitcher name="J. Garcia"/>
+      <p_pitcher teamcode="" wins="6" losses="4" era="3.87">
+         <pitcher name="J. Collmenter"/>
+      </p_pitcher>
+   </sg_game>
+   <sg_game>
+      <game id="2014_06_28_clemlb_seamlb_1" league="AA" status="PRE_GAME"
+            start_time="10:10PM"
+            home_code=""/>
+      <team name="Mariners" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <team name="Indians" code="">
+         <gameteam R="0" H="0" E="0"/>
+      </team>
+      <p_pitcher teamcode="" wins="7" losses="5" era="3.74">
+         <pitcher name="R. Elias"/>
+      </p_pitcher>
+      <p_pitcher teamcode="" wins="4" losses="5" era="4.39">
+         <pitcher name="J. Tomlin"/>
       </p_pitcher>
    </sg_game>
 </scoreboard>
