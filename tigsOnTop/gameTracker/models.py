@@ -1,10 +1,8 @@
-import datetime
 import pytz
 
 from django.db import models
-from tigsOnTop import settings
+from django.conf import settings
 
-__author__ = "Kyle Valade"
 
 class Game(models.Model):
     TIMEZONE = pytz.timezone(settings.TIME_ZONE)
@@ -28,11 +26,16 @@ class Game(models.Model):
                 self.usScore, self.themTeam, self.themScore,
                 self.startTime, self.currentStatus)
 
-    def importNewGame(self):
-        matchingGames = Game.objects.filter(startTime=self.startTime)
-        if len(matchingGames) == 0:
-            super(Game, self).save()
-
     def getLocalizedStartTime(self):
         locTime = self.startTime.astimezone(self.TIMEZONE)
         return locTime
+
+    def get_start_date(self):
+        """
+        :return {date}: the date on which the game starts
+        """
+        return self.startTime.date()
+
+    def is_finished(self):
+        """Is the game finished?"""
+        return self.currentStatus == settings.GAME_STATUS_FINAL
