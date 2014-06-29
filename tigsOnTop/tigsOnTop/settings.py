@@ -1,7 +1,6 @@
 import os
 import ConfigParser
 
-
 PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 THE_TEAM = "Tigers" # The team being tracked
