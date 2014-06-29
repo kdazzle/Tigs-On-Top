@@ -46,7 +46,7 @@ class UpdateGameCron(ImportGamesCron):
         for game in games_on_gameday:
             try:
                 matchingGame = Game.objects.get(startTime=game.startTime)
-                self._updateGame(matchingGame)
+                self._updateGame(matchingGame, game)
             except Game.DoesNotExist:
                 continue
 
