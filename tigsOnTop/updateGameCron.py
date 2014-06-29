@@ -1,10 +1,14 @@
 #!/usr/local/bin/python2.7
 import os
 import pytz
+from logging import getLogger
 
 from tigsOnTop import settings
 from importGames import ImportGamesCron
 from gameTracker.models import Game
+
+
+l = getLogger(__name__)
 
 
 class UpdateGameCron(ImportGamesCron):
@@ -21,7 +25,7 @@ class UpdateGameCron(ImportGamesCron):
 
     def _getActiveGame(self):
         """
-        If a game is being played right now, return it. Otherwise, return None.
+        Get the most recent active game or return None
 
         :return: {Game|None}
         """
@@ -29,11 +33,15 @@ class UpdateGameCron(ImportGamesCron):
             settings.GAME_STATUS_IN_PROGRESS,
             settings.GAME_STATUS_DELAYED,
         )
-        activeGames = Game.objects.filter(currentStatus__in=active_statuses)
+        activeGames = Game.objects.filter(
+            currentStatus__in=active_statuses).order_by("-startTime")
 
         if len(activeGames) > 0:
-            return activeGames[0]
+            game = activeGames[0]
+            l.info("Active game fetched: {}".format(game))
+            return game
         else:
+            l.info("No active games")
             return None
 
     def _updateGame(self, game):
@@ -61,6 +69,7 @@ class UpdateGameCron(ImportGamesCron):
         matchingGame.themScore = updatedGame.themScore
         matchingGame.currentStatus = updatedGame.currentStatus
         matchingGame.save()
+        l.info("Updated game: {}".format(matchingGame))
 
 
 if __name__ == "__main__":
