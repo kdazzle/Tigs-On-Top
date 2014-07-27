@@ -5,12 +5,6 @@ PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 THE_TEAM = "Tigers" # The team being tracked
 
-
-# Game Statuses
-GAME_STATUS_IN_PROGRESS = "IN_PROGRESS"
-GAME_STATUS_FINAL = "FINAL"
-GAME_STATUS_DELAYED = "DELAYED"
-
 #Cron
 IMPORT_ADVANCE_DAYS = 7
 
@@ -138,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'gameTracker',
+    'south',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

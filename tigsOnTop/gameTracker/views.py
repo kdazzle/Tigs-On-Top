@@ -1,13 +1,14 @@
 import datetime
-import pytz
 from logging import getLogger
 
+import pytz
 from django.utils.timezone import utc
 from django.template import Context, loader, RequestContext, Template
 from django.http import HttpResponse
 from django.conf import settings
 
-from .models import Game
+from .models import (
+    Game, GAME_STATUS_DELAYED, GAME_STATUS_IN_PROGRESS, GAME_STATUS_FINAL)
 
 
 l = getLogger(__name__)

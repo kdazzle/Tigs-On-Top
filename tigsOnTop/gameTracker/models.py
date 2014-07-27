@@ -4,9 +4,16 @@ from django.db import models
 from django.conf import settings
 
 
+# Game Statuses
+GAME_STATUS_IN_PROGRESS = "IN_PROGRESS"
+GAME_STATUS_FINAL = "FINAL"
+GAME_STATUS_DELAYED = "DELAYED"
+
+
 class Game(models.Model):
     TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 
+    mlbId = models.CharField(max_length=128, default="")  # TODO: Should be unique!
     usTeam = models.CharField(max_length=64, default=settings.THE_TEAM)
     themTeam = models.CharField(max_length=64)
     usScore = models.IntegerField(default=0)

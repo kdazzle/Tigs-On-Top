@@ -4,8 +4,8 @@ import pytz
 from logging import getLogger
 
 from tigsOnTop import settings
-from importGames import ImportGamesCron
-from gameTracker.models import Game
+from .importGames import ImportGamesCron
+from .models import Game, GAME_STATUS_IN_PROGRESS, GAME_STATUS_DELAYED
 
 
 l = getLogger(__name__)
@@ -30,8 +30,8 @@ class UpdateGameCron(ImportGamesCron):
         :return: {Game|None}
         """
         active_statuses = (
-            settings.GAME_STATUS_IN_PROGRESS,
-            settings.GAME_STATUS_DELAYED,
+            GAME_STATUS_IN_PROGRESS,
+            GAME_STATUS_DELAYED,
         )
         activeGames = Game.objects.filter(
             currentStatus__in=active_statuses).order_by("-startTime")
@@ -48,28 +48,28 @@ class UpdateGameCron(ImportGamesCron):
         """
         Gets updates from the MLB API about the given game.
 
-        :param {Game} game
+        :param {Game} game  an in-progress game
         """
-        games_on_gameday = self.getGamesToImportByDay(game.get_start_date())
-        for game in games_on_gameday:
+        games_from_mlb = self.getGamesFromMlbForDay(game.get_start_date())
+        for updatedGame in games_from_mlb:
             try:
-                matchingGame = Game.objects.get(startTime=game.startTime)
-                self._updateGameData(matchingGame, game)
+                matchingGame = Game.objects.get(mlbId=updatedGame.mlbId)
+                self._updateGameData(matchingGame, updatedGame)
             except Game.DoesNotExist:
-                continue
+                l.debug("No matching game found for {}".format(updatedGame))
 
-    def _updateGameData(self, matchingGame, updatedGame):
+    def _updateGameData(self, gameToUpdate, updatedGame):
         """
         Update an existing game with new data.
 
-        :param matchingGame: the already existing game
+        :param gameToUpdate: the already existing game
         :param updatedGame: the updated game taken from the xml data
         """
-        matchingGame.usScore = updatedGame.usScore
-        matchingGame.themScore = updatedGame.themScore
-        matchingGame.currentStatus = updatedGame.currentStatus
-        matchingGame.save()
-        l.info("Updated game: {}".format(matchingGame))
+        gameToUpdate.usScore = updatedGame.usScore
+        gameToUpdate.themScore = updatedGame.themScore
+        gameToUpdate.currentStatus = updatedGame.currentStatus
+        gameToUpdate.save()
+        l.info("Updated game: {}".format(gameToUpdate))
 
 
 if __name__ == "__main__":

@@ -3,12 +3,16 @@ import urllib2
 from xml.dom import minidom
 from datetime import datetime as DateTime
 import datetime
-import pytz
+from logging import getLogger
 
+import pytz
 from django.utils.timezone import utc
 
 from tigsOnTop import settings
-from gameTracker.models import Game
+from .models import Game
+
+
+l = getLogger(__name__)
 
 
 class ImportGamesCron():
@@ -18,7 +22,7 @@ class ImportGamesCron():
     def importGames(self):
         dateRange = self.getDateRange()
         for day in dateRange:
-            games = self.getGamesToImportByDay(day)
+            games = self.getGamesFromMlbForDay(day)
             self.saveGames(games)
 
     def getDateRange(self):
@@ -28,7 +32,7 @@ class ImportGamesCron():
         ]
         return dateList
 
-    def getGamesToImportByDay(self, day):
+    def getGamesFromMlbForDay(self, day):
         """
         Retrieve a list of Tigers games from the MLB API for a given date
 
@@ -37,7 +41,7 @@ class ImportGamesCron():
         """
         try:
             gameDataUrl = self.getGameDataUrl(day)
-            remoteDataXml = minidom.parse(urllib2.urlopen(gameDataUrl))
+            remoteDataXml = minidom.parseString(urllib2.urlopen(gameDataUrl))
             teamList = remoteDataXml.getElementsByTagName('team')  # List of games by team
             tigersGamesNodes = self._filterForTigersGames(teamList)
 
@@ -45,6 +49,7 @@ class ImportGamesCron():
             for gameNode in tigersGamesNodes:
                 games.append(self._createGameFromXml(gameNode, day))
         except urllib2.HTTPError:
+            l.exception("Unable to retrieve games from MLB API")
             games = []
 
         return games
@@ -101,41 +106,39 @@ class ImportGamesCron():
         :return {Game}:
         """
         teamsXml = gameNode.getElementsByTagName("team")
+        gameDataNode = gameNode.getElementsByTagName("game")[0]
+        gameAttributes = gameDataNode.attributes
+
         game = Game()
-        game.startTime = self._getStartTime(gameNode, day)
-        game.currentStatus = self._getGameCurrentStatus(gameNode)
+        game.startTime = self._getStartTime(
+            gameAttributes['start_time'].value, day)
+        game.currentStatus = gameAttributes['status'].value
+        game.mlbId = gameAttributes['id'].value
         for teamNode in teamsXml:
             currentTeamName = teamNode.attributes["name"].value
             if currentTeamName == settings.THE_TEAM:
                 game.usTeam = settings.THE_TEAM
-                game.usScore = self._getScoreFromTeamNode(teamNode)
+                game.usScore = int(self._getScoreFromTeamNode(teamNode))
             else:
                 game.themTeam = currentTeamName
-                game.themScore = self._getScoreFromTeamNode(teamNode)
+                game.themScore = int(self._getScoreFromTeamNode(teamNode))
 
         return game
 
-    def _getStartTime(self, gameNode, day):
+    def _getStartTime(self, startTime, day):
         """
         Create the datetime of a given game using the given `day` and the
         time given in the xml.
 
-        :param gameNode: the xml representation of a game
+        :param gameNode: the XML attribute representing the game's start
         :param {date} day: the day of the game
         :return {datetime}:
         """
-        gameDataNode = gameNode.getElementsByTagName("game")[0]
-        startTime = gameDataNode.attributes["start_time"].value
         startDay = "%s %s %s" % (day.month, day.day, day.year)
         utcTime = DateTime.strptime("%s %s" % (startDay, startTime), "%m %d %Y %I:%M%p")
         utcTime.replace(tzinfo=utc)
 
         return utcTime
-
-    def _getGameCurrentStatus(self, gameNode):
-        gameDataNode = gameNode.getElementsByTagName("game")[0]
-        status = gameDataNode.attributes["status"].value
-        return status
 
     def _getScoreFromTeamNode(self, teamNode):
         gameStats = teamNode.getElementsByTagName("gameteam")[0]

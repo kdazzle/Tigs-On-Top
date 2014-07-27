@@ -1,0 +1,30 @@
+[
+    {
+        "pk": 1,
+        "model": "gameTracker.game",
+        "fields": {
+            "mlbId": "2013_02_17_detmlb_clemlb_1",
+            "themScore": 1,
+            "themTeam": "Braves",
+            "addDate": "2013-02-17T00:00:04.209Z",
+            "usScore": 2,
+            "usTeam": "Tigers",
+            "startTime": "2013-02-22T18:05:00Z",
+            "currentStatus": "FINAL"
+        }
+    },
+    {
+        "pk": 50,
+        "model": "gameTracker.game",
+        "fields": {
+            "mlbId": "2014_06_28_detmlb_houmlb_1",
+            "themScore": 0,
+            "themTeam": "Mariners",
+            "addDate": "2014-06-27T01:01:29Z",
+            "usScore": 1,
+            "usTeam": "Tigers",
+            "startTime": "2014-06-28T16:10:00Z",
+            "currentStatus": "IN_PROGRESS"
+        }
+    }
+]
