@@ -3,7 +3,7 @@ from logging import getLogger
 
 import pytz
 from django.utils.timezone import utc
-from django.template import Context, loader, RequestContext, Template
+from django.template import loader, RequestContext
 from django.http import HttpResponse
 from django.conf import settings
 
@@ -40,9 +40,9 @@ def getActiveGame():
     """
     utcNow = datetime.datetime.utcnow().replace(tzinfo=utc)
     active_statuses = (
-        settings.GAME_STATUS_IN_PROGRESS,
-        settings.GAME_STATUS_FINAL,
-        settings.GAME_STATUS_DELAYED)
+        GAME_STATUS_IN_PROGRESS,
+        GAME_STATUS_FINAL,
+        GAME_STATUS_DELAYED)
 
     games = Game.objects.filter(
         startTime__lte=utcNow,

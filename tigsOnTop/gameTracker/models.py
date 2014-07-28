@@ -45,4 +45,4 @@ class Game(models.Model):
 
     def is_finished(self):
         """Is the game finished?"""
-        return self.currentStatus == settings.GAME_STATUS_FINAL
+        return self.currentStatus == GAME_STATUS_FINAL
