@@ -36,8 +36,8 @@ class ImportGamesCron():
         """
         Retrieve a list of Tigers games from the MLB API for a given date
 
-        :param {date} day: date of a game
-        :return {list} list of Tigers games
+        :param date day: date of a game
+        :return list list of Tigers games
         """
         try:
             gameDataUrl = self.getGameDataUrl(day)
@@ -58,8 +58,8 @@ class ImportGamesCron():
         """
         Get the URL of the XML file of a day's games
 
-        :param {date} date: get the baseball games for this date
-        :return {string}: the url
+        :param date date: get the baseball games for this date
+        :return string: the url
         """
         month = "%02d" % (date.month)
         day = "%02d" % (date.day)
@@ -72,9 +72,9 @@ class ImportGamesCron():
         """
         Return a list of games in which the Tigers are playing.
 
-        :param {list} teamList: list of team nodes. Team nodes are children of
+        :param list teamList: list of team nodes. Team nodes are children of
          game nodes.
-        :return {list}: list of xml game nodes
+        :return list: list of xml game nodes
         """
         #TODO: Error check
         games = []
@@ -88,7 +88,7 @@ class ImportGamesCron():
         """
         Saves each game if it isn't already in the database
 
-        :param {list} games: list of Games
+        :param list games: list of Games
         """
         for game in games:
             matchingGames = Game.objects.filter(startTime=game.startTime)
@@ -101,9 +101,9 @@ class ImportGamesCron():
         don't persist it to the database.
 
         :param gameNode: the xml data of a game
-        :param {date} day: the date of the game. Need it to create a datetime
+        :param date day: the date of the game. Need it to create a datetime
          from the xml data.
-        :return {Game}:
+        :return Game:
         """
         teamsXml = gameNode.getElementsByTagName("team")
         gameDataNode = gameNode.getElementsByTagName("game")[0]
@@ -131,8 +131,8 @@ class ImportGamesCron():
         time given in the xml.
 
         :param gameNode: the XML attribute representing the game's start
-        :param {date} day: the day of the game
-        :return {datetime}:
+        :param date day: the day of the game
+        :return datetime:
         """
         startDay = "%s %s %s" % (day.month, day.day, day.year)
         utcTime = DateTime.strptime("%s %s" % (startDay, startTime), "%m %d %Y %I:%M%p")
