@@ -66,10 +66,6 @@ class UpdateGameCronTest(TestCase):
 
         updater._updateGameData.assert_called_once_with(ANY, ANY)
 
-    def test_late_game(self):
-        """A game that runs past midnite EST is updated."""
-        assert False, "This test isn't written"
-
     def test_update_game_data(self):
         """A game is updated with the data from another game"""
         gameToUpdate = Game.objects.get(

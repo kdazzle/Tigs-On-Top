@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import datetime
 from logging import getLogger
 
@@ -19,7 +21,7 @@ TIMEZONE = pytz.timezone(settings.TIME_ZONE)
 def home(request):
     try:
         game = getActiveGame()
-        winningDialog = getWinningDialog(game)
+        winningDialog = get_winning_dialog(game)
     except Exception as e:
         l.exception(e)
         game = None
@@ -54,7 +56,7 @@ def getActiveGame():
         return None
 
 
-def getWinningDialog(game):
+def get_winning_dialog(game):
     """
     Get a pleasantly upbeat message (to be shown to the user) about the
      performance of the Tigers.
